@@ -1,0 +1,70 @@
+<div class="container-fluid">
+    <form [formGroup]="kupacForm" autocomplete="off" novalidate (ngSubmit)="createKupac(kupacForm.value)">
+      <div class="card card-body bg-light mb-2 mt-4">
+   
+        <div class="row mb-3">
+          <label for="sifra" class="col-form-label col-md-1">Šifra kupca: </label>
+          <div class="col-md-3">
+            <input type="text" formControlName="sifra" id="sifra" class="form-control" />
+          </div>
+          <div class="col-md-5">
+            <em *ngIf="validateControl('sifra') 
+            && hasError('sifra', 'required')">Sifra is required</em>
+            <em *ngIf="validateControl('sifra') 
+            && hasError('sifra', 'maxlength')">Maximum allowed length is 50 characters.</em>
+          </div>
+        </div>
+   
+        <div class="row mb-3">
+            <label for="naziv" class="col-form-label col-md-1">Ime kupca: </label>
+            <div class="col-md-3">
+              <input type="text" formControlName="naziv" id="naziv" class="form-control" />
+            </div>
+            <div class="col-md-5">
+              <em *ngIf="validateControl('naziv') 
+              && hasError('naziv', 'required')">Ime is required</em>
+              <em *ngIf="validateControl('naziv') 
+              && hasError('naziv', 'maxlength')">Maximum allowed length is 50 characters.</em>
+            </div>
+          </div>
+   
+        <div class="mb-3 row">
+          <label for="adresa" class="col-form-label col-md-1">Adresa: </label>
+          <div class="col-md-3">
+            <input type="text" formControlName="adresa" id="adresa" class="form-control" />
+          </div>
+          <div class="col-md-5">
+            <em *ngIf="validateControl('adresa') 
+            && hasError('adresa', 'required')">Adresa is required</em>
+            <em *ngIf="validateControl('adresa') 
+            && hasError('adresa', 'maxlength')">Maximum allowed length is 100 characters.</em>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="mjesto" class="col-form-label col-md-1">Mjesto: </label>
+            <div class="col-md-3">
+              <input type="text" formControlName="mjesto" id="mjesto" class="form-control" />
+            </div>
+            <div class="col-md-5">
+              <em *ngIf="validateControl('mjesto') 
+              && hasError('mjesto', 'required')">Mjesto is required</em>
+              <em *ngIf="validateControl('mjesto') 
+              && hasError('mjesto', 'maxlength')">Maximum allowed length is 100 characters.</em>
+            </div>
+          </div>
+   
+        <br><br>
+   
+        <div class="mb-1 row">
+            <div class="offset-1 col-md-1">
+                <button type="submit" class="btn btn-info btn-lg" [disabled]="!kupacForm.valid">Add</button>
+            </div>
+            <div class="col-md-1">
+                <button type="button" class="btn btn-danger btn-lg" (click)="redirectToKupacList()">Cancel</button>
+            </div>
+        </div>
+        
+      </div>
+    </form>
+  </div>

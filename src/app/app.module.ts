@@ -8,6 +8,10 @@ import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { NotFoundComponent } from './error-pages/not-found/not-found.component';
+import { HttpClientModule } from '@angular/common/http';
+import { KupacModule } from './kupac/kupac.module';
+import { InternalServerComponent } from './error-pages/internal-server/internal-server.component';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -16,14 +20,17 @@ import { NotFoundComponent } from './error-pages/not-found/not-found.component';
     HomeComponent,
     MenuComponent,
     NotFoundComponent,
+    InternalServerComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    CollapseModule
+    CollapseModule,
+    HttpClientModule,
+    KupacModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
