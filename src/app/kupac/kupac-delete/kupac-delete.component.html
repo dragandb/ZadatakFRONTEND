@@ -1,62 +1,61 @@
 <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-10 well">
-  
-        <div class="row">
-          <div class="col-md-3">
-            <label for="sifra" class="control-label">Šifra kupca:</label>
-          </div>
-          <div class="col-md-7">
-            <span name="sifra">
-              {{kupac?.sifra}}
-            </span>
-          </div>
-        </div>
-         
-        <div class="row">
-          <div class="col-md-3">
-            <label for="naziv" class="control-label">Ime kupca:</label>
-          </div>
-          <div class="col-md-7">
-            <span name="naziv">
-             {{kupac?.naziv}}
-            </span>
-          </div>
-        </div>
-         
-        <div class="row">
-          <div class="col-md-3">
-            <label for="adresa" class="control-label">Adresa:</label>
-          </div>
-          <div class="col-md-7">
-            <span name="adresa">
-              {{kupac?.adresa}}
-            </span>
-          </div>
-        </div>
+    <div class="card card-body bg-light mt-4">
+      <div class="row">
+        <div class="col-md-4"> 
+            <div class="card card-body mb-6 mt-2" >
+                
+                <div class="row">
+                    <div class="col-md-6">
+                      <label for="sifra" class="control-label fw-bold">Šifra kupca:</label>
+                    </div>
+                    <div class="col-md-6">
+                      <span name="sifra">
+                        {{kupac?.sifra}}
+                      </span>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                      <label for="naziv" class="control-label-md-2 fw-bold">Ime kupca:</label>
+                    </div>
+                    <div class="col-md-6">
+                      <span name="naziv">
+                        {{kupac?.naziv}}
+                      </span>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                      <label for="adresa" class="control-label-md-2 fw-bold">Adresa:</label>
+                    </div>
+                    <div class="col-md-6">
+                      <span name="adresa">
+                        {{kupac?.adresa}}
+                      </span>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                      <label for="mjesto" class="control-label-md-2 fw-bold">Mjesto:</label>
+                    </div>
+                    <div class="col-md-6">
+                      <span name="mjesto">
+                        {{kupac?.mjesto}}
+                      </span>
+                    </div>
+                </div>
 
-        <div class="row">
-            <div class="col-md-3">
-              <label for="mjesto" class="control-label">Mjesto:</label>
             </div>
-            <div class="col-md-7">
-              <span name="mjesto">
-                {{kupac?.mjesto}}
-              </span>
-            </div>
-          </div>
-  
+        </div>
+      </div>
+      <div class="row md-4 mt-4">
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-danger" (click)="deleteKupac()">Delete</button>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-secondary" (click)="redirectToKupacList()">Cancel</button>
+        </div>
       </div>
     </div>
-    <br>
-    <div class="row">
-        <div class="col-md-offset-8 col-md-1">
-          <button type="submit" class="btn btn-info" (click)="deleteKupac()">Delete</button>
-        </div>
-        <div class="col-md-1">
-          <button type="button" class="btn btn-danger" (click)="redirectToKupacList()">Cancel</button>
-        </div>
-      </div>
-  </div>
-  
+</div>  
 

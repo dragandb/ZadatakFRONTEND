@@ -59,7 +59,7 @@ export class KupacCreateComponent implements OnInit {
       adresa: kupacFormValue.adresa,
       mjesto: kupacFormValue.mjesto
     }
-    const apiUrl = 'api/Kupac/Add';
+    const apiUrl = 'api/Kupac';
     this.repository.createKupac(apiUrl, kupac)
     .subscribe({
       next: (kup: Kupac) => {
