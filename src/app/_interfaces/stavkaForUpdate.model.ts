@@ -4,4 +4,7 @@ export interface StavkaForUpdate{
     popust: string;
     iznos_popusta: string;
     vrijednost: string;
+
+    proizvodId?: string;
+    racunId?: string;
   }
