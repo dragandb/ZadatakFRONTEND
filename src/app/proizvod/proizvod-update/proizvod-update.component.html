@@ -1,0 +1,86 @@
+<div class="container-fluid">
+    <form [formGroup]="proizvodForm" autocomplete="off" novalidate (ngSubmit)="updateProizvod(proizvodForm.value)">
+      <div class="card card-body bg-light mt-4">
+        <div class="row">
+          <div class="col-md-8"> 
+              <div class="card card-body mt-2" >
+                  
+                  <div class="row mb-3 mt-2">
+                      <label for="sifra" class="col-form-label fw-bold col-md-3">Šifra: </label>
+                      <div class="col-md-5">
+                        <input type="text" formControlName="sifra" id="sifra" class="form-control" />
+                      </div>
+                      <div class="col-md-4">
+                        <em *ngIf="validateControl('sifra') 
+                        && hasError('sifra', 'required')">Šifra is required</em>
+                        <em *ngIf="validateControl('sifra') 
+                        && hasError('sifra', 'maxlength')">Maximum allowed length is 50 characters.</em>
+                      </div>
+                    </div>
+               
+                    <div class="row mb-3">
+                      <label for="naziv" class="col-form-label fw-bold col-md-3">Ime: </label>
+                      <div class="col-md-5">
+                          <input type="text" formControlName="naziv" id="naziv" class="form-control" />
+                      </div>
+                      <div class="col-md-4">
+                          <em *ngIf="validateControl('naziv') 
+                          && hasError('naziv', 'required')">Ime is required</em>
+                          <em *ngIf="validateControl('naziv') 
+                          && hasError('naziv', 'maxlength')">Maximum allowed length is 50 characters.</em>
+                      </div>
+                    </div>
+               
+                    <div class="row mb-3">
+                      <label for="jedinica_mjere" class="col-form-label fw-bold col-md-3">Jedinica mjere: </label>
+                      <div class="col-md-5">
+                        <input type="text" formControlName="jedinica_mjere" id="jedinica_mjere" class="form-control" />
+                      </div>
+                      <div class="col-md-4">
+                        <em *ngIf="validateControl('jedinica_mjere') 
+                        && hasError('jedinica_mjere', 'required')">Jedinica mjere is required</em>
+                        <em *ngIf="validateControl('jedinica_mjere') 
+                        && hasError('jedinica_mjere', 'maxlength')">Maximum allowed length is 20 characters.</em>
+                      </div>
+                    </div>
+            
+                    <div class="row mb-3">
+                      <label for="cijena" class="col-form-label fw-bold col-md-3">Cijena: </label>
+                      <div class="col-md-5">
+                          <input type="text" formControlName="cijena" id="cijena" class="form-control" />
+                      </div>
+                      <div class="col-md-4">
+                          <em *ngIf="validateControl('cijena') 
+                          && hasError('cijena', 'required')">Cijena is required</em>
+                          <em *ngIf="validateControl('cijena') 
+                          && hasError('cijena', 'maxlength')">Maximum allowed length is 20 characters.</em>
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <label for="stanje" class="col-form-label fw-bold col-md-3">Stanje: </label>
+                        <div class="col-md-5">
+                            <input type="text" formControlName="stanje" id="stanje" class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+                            <em *ngIf="validateControl('stanje') 
+                            && hasError('stanje', 'required')">Stanje is required</em>
+                            <em *ngIf="validateControl('stanje') 
+                            && hasError('stanje', 'maxlength')">Maximum allowed length is 20 characters.</em>
+                          </div>
+                      </div>
+  
+              </div>
+          </div>
+        </div>
+        <div class="row md-4 mt-4">
+          <div class="col-md-1">
+              <button type="submit" class="btn btn-info" [disabled]="!proizvodForm.valid">Save</button>
+          </div>
+          <div class="col-md-2">
+              <button type="button" class="btn btn-secondary" (click)="redirectToProizvodList()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>  

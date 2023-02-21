@@ -1,0 +1,70 @@
+<div class="container-fluid">
+    <div class="card card-body bg-light mt-4">
+      <div class="row">
+        <div class="col-md-4"> 
+            <div class="card card-body mb-6 mt-2" >
+                
+                <div class="row">
+                    <div class="col-md-6">
+                      <label for="sifra" class="control-label fw-bold">Šifra proizvoda:</label>
+                    </div>
+                    <div class="col-md-6">
+                      <span name="sifra">
+                        {{proizvod?.sifra}}
+                      </span>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                      <label for="naziv" class="control-label-md-2 fw-bold">Ime proizvoda:</label>
+                    </div>
+                    <div class="col-md-6">
+                      <span name="naziv">
+                        {{proizvod?.naziv}}
+                      </span>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                      <label for="adresa" class="control-label-md-2 fw-bold">Jedinica mjere:</label>
+                    </div>
+                    <div class="col-md-6">
+                      <span name="adresa">
+                        {{proizvod?.jedinica_mjere}}
+                      </span>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                      <label for="adresa" class="control-label-md-2 fw-bold">Cijena:</label>
+                    </div>
+                    <div class="col-md-6">
+                      <span name="adresa">
+                        {{proizvod?.cijena}}
+                      </span>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                      <label for="mjesto" class="control-label-md-2 fw-bold">stanje:</label>
+                    </div>
+                    <div class="col-md-6">
+                      <span name="mjesto">
+                        {{proizvod?.stanje}}
+                      </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+      </div>
+      <div class="row md-4 mt-4">
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-danger" (click)="deleteProizvod()">Delete</button>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-secondary" (click)="redirectToProizvodList()">Cancel</button>
+        </div>
+      </div>
+    </div>
+</div> 

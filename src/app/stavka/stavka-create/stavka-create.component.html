@@ -1,0 +1,153 @@
+<div class="container-fluid" [formGroup]="stavkaForm" autocomplete="off" novalidate (ngSubmit)="createStavka(stavkaForm.value)">
+    <div class="card card-body bg-light mt-4">
+        <div class="row">
+          <div class="col-md-12"> 
+              <div class="card card-body mt-2" >
+                  
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Broj računa</label>
+                            <span class="text-danger">*</span>
+                            <input formControlName="broj" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Kupac</label>
+                            <span class="text-danger">*</span>
+                            <select formControlName="kupacId" class="form-control"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Napomena</label>
+                            <textarea formControlName="napomena" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Datum</label>
+                            <textarea formControlName="datum" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Adresa</label>
+                            <textarea formControlName="adresa" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                  
+  
+              </div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-9">
+                <div class="table-responsive">
+                    <table class="table table-bordered border-dark table-striped" formArrayName="detalji" >
+                        <thead class="bg-secondary  text-dark">
+                            <tr>
+                                <th></th>
+                                <th>#</th>
+                                <th style="width: 10%;">Šifra</th>
+                                <th style="width: 15%;">Naziv</th>
+                                <th>Cijena</th>
+                                <th style="width: 5%;">Količina</th>
+                                <th>Iznos</th>
+                                <th style="width: 5%;">Popust%</th>
+                                <th>Iznos popusta</th>
+                                <th>Ukupno</th>
+                              </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            <tr *ngFor="let proizvod of invProizvodi.controls; let i=index" [formGroupName]="i">
+                                <td>
+                                    <a class="btn btn-sm btn-danger">X</a>
+                                </td>
+                                <td>{{i+1}}</td>
+                                <td>
+                                    <select class="form-control" formControlName="sifra"></select>
+                                </td>
+                                <td>
+                                    <select class="form-control" formControlName="naziv"></select>
+                                </td>
+                                <td>
+                                    <input class="form-control" formControlName="cijena" />
+                                </td>
+                                <td>
+                                    <input class="form-control" formControlName="kolicina" />
+                                </td>
+                                <td>
+                                    <input class="form-control" formControlName="iznos" />
+                                </td>
+                                <td>
+                                    <input class="form-control" formControlName="popust" />
+                                </td>
+                                <td>
+                                    <input class="form-control" formControlName="iznosPopusta" />
+                                </td>
+                                <td>
+                                    <input class="form-control" formControlName="ukupno" />
+                                </td>                           
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>
+                                    <svg type="button" (click)="addNewProduct()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                      </svg>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                
+            </div>
+            
+            <div class="col-md-3"> 
+                <div class="card card-body" >
+                    
+                    <div class="row">
+                        <div class="form-group">
+                            <label>Vrijednost</label>
+                            <input formControlName="vrijednost" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="form-group">
+                            <label>Popust</label>
+                            <input formControlName="popust" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="form-group">
+                            <label>Ukupna vrijednost</label>
+                            <input formControlName="ukupnaVrijednost" class="form-control" />
+                        </div>
+                    </div>
+    
+                </div>
+    
+                <div class="row md-3 mt-4">
+                    <div class="col-md-3 offset-5">
+                        <button type="submit" class="btn btn-success" [disabled]="!stavkaForm.valid">Save</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-secondary" (click)="redirectToStavkaList()">Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

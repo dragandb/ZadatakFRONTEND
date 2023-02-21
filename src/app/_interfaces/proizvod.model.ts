@@ -1,3 +1,5 @@
+import { Stavka } from "./stavka.model";
+
 export interface Proizvod{
     id: string;
     sifra: string;
@@ -5,4 +7,6 @@ export interface Proizvod{
     jedinica_mjere: string;
     cijena: string;
     stanje: string;
+
+    stavke?: Stavka[];
   }

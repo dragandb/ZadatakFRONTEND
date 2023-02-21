@@ -13,10 +13,23 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/kupac/list']" routerLinkActive="active1" 
-                [routerLinkActiveOptions]="{exact: true}"> Kupac </a>
+                [routerLinkActiveOptions]="{exact: true}"> Kupci </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Account Actions </a>
+                <a class="nav-link" [routerLink]="['/proizvod/list']" routerLinkActive="active1" 
+                [routerLinkActiveOptions]="{exact: true}"> Proizvodi </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/racun/list']" routerLinkActive="active1" 
+                [routerLinkActiveOptions]="{exact: true}"> Računi </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/stavka/list']" routerLinkActive="active1" 
+                [routerLinkActiveOptions]="{exact: true}"> Stavke </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/transakcija/list']" routerLinkActive="active1" 
+                [routerLinkActiveOptions]="{exact: true}"> Transakcije </a>
               </li>
             </ul>
           </div>

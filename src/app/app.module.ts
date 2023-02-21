@@ -12,6 +12,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { KupacModule } from './kupac/kupac.module';
 import { InternalServerComponent } from './error-pages/internal-server/internal-server.component';
 import { DatePipe } from '@angular/common';
+import { ProizvodModule } from './proizvod/proizvod.module';
+import { RacunModule } from './racun/racun.module';
+import { StavkaModule } from './stavka/stavka.module';
+import { TransakcijaModule } from './transakcija/transakcija.module';
 
 
 @NgModule({
@@ -28,7 +32,11 @@ import { DatePipe } from '@angular/common';
     BrowserAnimationsModule,
     CollapseModule,
     HttpClientModule,
-    KupacModule
+    KupacModule,
+    ProizvodModule,
+    RacunModule,
+    StavkaModule,
+    TransakcijaModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
