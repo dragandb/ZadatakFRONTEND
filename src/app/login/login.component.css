@@ -1,0 +1,13 @@
+.login{ 
+    font-size: 45px;
+    font-weight: bold; 
+    color: rgb(2, 10, 37); 
+    text-align: center; 
+    position: relative; 
+    top:0px; 
+    
+}
+
+.sr-only{
+    font-weight: bold;
+}

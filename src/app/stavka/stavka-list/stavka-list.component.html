@@ -12,6 +12,9 @@
                 <table class="table table-secondary table-striped">
                   <thead>
                     <tr>
+                      <th>Id</th>
+                      <th>Račun Id</th>
+                      <th>Proizvod Id</th>
                       <th>Kolicina</th>
                       <th>Cijena</th>
                       <th>Popust</th>
@@ -22,6 +25,9 @@
                   </thead>
                   <tbody class="table-group-divider">
                     <tr *ngFor="let stavka of stavkaList">
+                      <td>{{stavka.id}}</td>
+                      <td>{{stavka.racunId}}</td>
+                      <td>{{stavka.proizvodId}}</td>
                       <td>{{stavka.kolicina}}</td>
                       <td>{{stavka.cijena}}</td>
                       <td>{{stavka.popust}}</td>

@@ -1,7 +1,12 @@
+import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { SuccessModalComponent } from 'src/app/shared/modals/success-modal/success-modal.component';
 import { TransakcijaRepositoryService } from 'src/app/shared/services/transakcija-repository.service';
+import { Racun } from 'src/app/_interfaces/racun.model';
 
 @Component({
   selector: 'app-transakcija-create',
@@ -9,15 +14,19 @@ import { TransakcijaRepositoryService } from 'src/app/shared/services/transakcij
   styleUrls: ['./transakcija-create.component.css']
 })
 export class TransakcijaCreateComponent implements OnInit {
+  errorHandler: any;
 
-  constructor(private builder:FormBuilder, private repository: TransakcijaRepositoryService, private router: Router) { }
+  constructor(private builder:FormBuilder, private modal: BsModalService, private repository: TransakcijaRepositoryService, private router: Router) { }
 
   proizvodForm: FormGroup;
-  transakcijaDetail !: FormArray<any>;
-  transakcijaProizvod !: FormGroup<any>;
+  stavkaDetail !: FormArray<any>;
+  stavkaProizvod !: FormGroup<any>;
 
   masterKupac: any;
   masterProizvod: any;
+
+  errorMessage: string = '';
+  bsModalRef?: BsModalRef;
 
   ngOnInit(): void {
     this.GetKupacAll();
@@ -32,27 +41,71 @@ export class TransakcijaCreateComponent implements OnInit {
     mjesto:this.builder.control(''),
     datum:this.builder.control(''),
     napomena:this.builder.control(''),
-    vrijednost:this.builder.control({value:0,disabled:true}),
-    popust:this.builder.control({value:0,disabled:true}),
-    ukupnaVrijednost:this.builder.control({value:0,disabled:true}),
-    detalji:this.builder.array([]),
+    ukupno:this.builder.control({value:0,disabled:true}),
+    ukupnoPopust:this.builder.control({value:0,disabled:true}),
+    total:this.builder.control({value:0,disabled:true}),
+    stavke:this.builder.array([]),
   });
 
-  createTransakcija(){
+  createTransakcijaSvi(){
     console.log(this.transakcijaForm.value);
   }
 
+  validateControl = (controlName: string) => {
+    if (this.transakcijaForm.get(controlName).invalid && this.transakcijaForm.get(controlName).touched)
+      return true;
+    
+    return false;
+  } 
+  hasError = (controlName: string, errorName: string) => {
+    if (this.transakcijaForm.get(controlName).hasError(errorName))
+      return true;
+    
+    return false;
+  }
+
+  createTransakcija() {
+    if (this.transakcijaForm.valid)
+      this.repository.createRacun(this.transakcijaForm.getRawValue())
+      .subscribe({
+        next: (rac: Racun) => {
+          const config: ModalOptions = {
+            initialState: {
+              modalHeaderText: 'Success Message',
+              modalBodyText: `Racun: ${rac.broj} created successfully`,
+              okButtonText: 'OK'
+            }
+          };
+          this.bsModalRef = this.modal.show(SuccessModalComponent, config);
+          this.bsModalRef.content.redirectOnOk.subscribe(_ => this.redirectToTransakcijaList());
+        },
+        error: (err: HttpErrorResponse) => {
+            this.errorHandler.handleError(err);
+            this.errorMessage = this.errorHandler.errorMessage;
+        }
+      })
+  }
+    
+  
+
+
+
+
+
+
   addNewProduct(){
-    this.transakcijaDetail = this.transakcijaForm.get("detalji") as FormArray;
-    this.transakcijaDetail.push(this.generateRow());
+    this.stavkaDetail = this.transakcijaForm.get("stavke") as FormArray;
+    this.stavkaDetail.push(this.generateRow());
   }
 
   get invProizvodi(){
-    return this.transakcijaForm.get("detalji") as FormArray;
+    return this.transakcijaForm.get("stavke") as FormArray;
   }
 
   generateRow(){
     return this.builder.group({
+      racunId: this.builder.control(''),
+      proizvodId: this.builder.control('', Validators.required),
       sifra: this.builder.control(''),
       naziv: this.builder.control(''),
       cijena: this.builder.control(0),
@@ -89,38 +142,38 @@ export class TransakcijaCreateComponent implements OnInit {
   }
 
   changeProizvod(index:any){
-    this.transakcijaDetail =this.transakcijaForm.get("detalji") as FormArray;
-    this.transakcijaProizvod=this.transakcijaDetail.at(index) as FormGroup;
-    let proizvodId=this.transakcijaProizvod.get("naziv")?.value;
+    this.stavkaDetail =this.transakcijaForm.get("stavke") as FormArray;
+    this.stavkaProizvod=this.stavkaDetail.at(index) as FormGroup;
+    let proizvodId=this.stavkaProizvod.get("proizvodId")?.value;
     this.repository.getProizvod(proizvodId).subscribe(res => {
       let prodata: any;
       prodata = res;
       if(prodata!=null){
-        this.transakcijaProizvod.get("sifra")?.setValue(prodata.sifra);
-        this.transakcijaProizvod.get("cijena")?.setValue(prodata.cijena);
+        this.stavkaProizvod.get("sifra")?.setValue(prodata.sifra);
+        this.stavkaProizvod.get("cijena")?.setValue(prodata.cijena);
         this.ItemCalculation(index);
       }
     })
   }
 
   ItemCalculation(index:any){
-    this.transakcijaDetail =this.transakcijaForm.get("detalji") as FormArray;
-    this.transakcijaProizvod=this.transakcijaDetail.at(index) as FormGroup;
-    let cijena = this.transakcijaProizvod.get("cijena")?.value;
-    let kolicina = this.transakcijaProizvod.get("kolicina")?.value;
+    this.stavkaDetail =this.transakcijaForm.get("stavke") as FormArray;
+    this.stavkaProizvod=this.stavkaDetail.at(index) as FormGroup;
+    let cijena = this.stavkaProizvod.get("cijena")?.value;
+    let kolicina = this.stavkaProizvod.get("kolicina")?.value;
     let iznos = cijena*kolicina;
-    this.transakcijaProizvod.get("iznos")?.setValue(iznos);
-    let popust = this.transakcijaProizvod.get("popust")?.value;
+    this.stavkaProizvod.get("iznos")?.setValue(iznos);
+    let popust = this.stavkaProizvod.get("popust")?.value;
     let popustUkupno = popust/100*iznos;
-    this.transakcijaProizvod.get("iznosPopusta")?.setValue(popustUkupno);
+    this.stavkaProizvod.get("iznosPopusta")?.setValue(popustUkupno);
     let ukupno = iznos-popustUkupno;
-    this.transakcijaProizvod.get("ukupno")?.setValue(ukupno);
+    this.stavkaProizvod.get("ukupno")?.setValue(ukupno);
 
     this.SummaryCalculation();
   }
 
   SummaryCalculation(){
-    let array=this.transakcijaForm.getRawValue().detalji;
+    let array=this.transakcijaForm.getRawValue().stavke;
     let vrijednost=0
     array.forEach((x:any)=>{
       vrijednost=vrijednost+x.iznos;
@@ -132,9 +185,13 @@ export class TransakcijaCreateComponent implements OnInit {
 
     let ukupnaVrijednost=vrijednost-popustTotal;
 
-    this.transakcijaForm.get("vrijednost")?.setValue(vrijednost);
-    this.transakcijaForm.get("popust")?.setValue(popustTotal);
-    this.transakcijaForm.get("ukupnaVrijednost")?.setValue(ukupnaVrijednost);
+    this.transakcijaForm.get("ukupno")?.setValue(vrijednost);
+    this.transakcijaForm.get("ukupnoPopust")?.setValue(popustTotal);
+    this.transakcijaForm.get("total")?.setValue(ukupnaVrijednost);
+  }
+
+  redirectToTransakcijaList = () => {
+    this.router.navigate(['/transakcija/list']);
   }
 
 }

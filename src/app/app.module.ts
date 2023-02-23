@@ -16,7 +16,15 @@ import { ProizvodModule } from './proizvod/proizvod.module';
 import { RacunModule } from './racun/racun.module';
 import { StavkaModule } from './stavka/stavka.module';
 import { TransakcijaModule } from './transakcija/transakcija.module';
+import { LoginComponent } from './login/login.component';
+import { FormsModule } from '@angular/forms';
+import { JwtModule } from "@auth0/angular-jwt";
+import { AuthGuard } from './guards/auth.guard';
+import { RegisterComponent } from './register/register.component';
 
+export function tokenGetter() { 
+  return localStorage.getItem("jwt");
+}
 
 @NgModule({
   declarations: [
@@ -25,6 +33,8 @@ import { TransakcijaModule } from './transakcija/transakcija.module';
     MenuComponent,
     NotFoundComponent,
     InternalServerComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,9 +46,17 @@ import { TransakcijaModule } from './transakcija/transakcija.module';
     ProizvodModule,
     RacunModule,
     StavkaModule,
-    TransakcijaModule
+    TransakcijaModule,
+    FormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:7186"],
+        disallowedRoutes: []
+      }
+    })
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

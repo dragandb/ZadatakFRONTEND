@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ErrorHandlerService } from 'src/app/shared/services/error-handler.service';
 import { RacunRepositoryService } from 'src/app/shared/services/racun-repository.service';
+import { Kupac } from 'src/app/_interfaces/kupac.model';
 import { Racun } from 'src/app/_interfaces/racun.model';
 
 @Component({
@@ -13,7 +14,7 @@ import { Racun } from 'src/app/_interfaces/racun.model';
 export class RacunListComponent implements OnInit {
 
   racunList: Racun[];
-
+  kupacList: Kupac[];
   errorMessage: string = '';
   
 
@@ -21,6 +22,7 @@ export class RacunListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllRacun();
+    this.getAllKupac();
   }
 
   private getAllRacun = () => {
@@ -28,6 +30,18 @@ export class RacunListComponent implements OnInit {
     this.repository.getRacunList(apiAddress)
     .subscribe({
       next: (rac: Racun[]) => this.racunList = rac,
+      error: (err: HttpErrorResponse) => {
+          this.errorHandler.handleError(err);
+          this.errorMessage = this.errorHandler.errorMessage;
+      }
+    })
+  }
+
+  private getAllKupac = () => {
+    const apiAddress: string = 'api/Kupac';
+    this.repository.getKupacList(apiAddress)
+    .subscribe({
+      next: (kup: Kupac[]) => this.kupacList = kup,
       error: (err: HttpErrorResponse) => {
           this.errorHandler.handleError(err);
           this.errorMessage = this.errorHandler.errorMessage;

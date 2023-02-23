@@ -5,6 +5,9 @@ export interface Racun{
     broj: string;
     datum: string;
     napomena: string;
+    ukupno: string;
+    popustUkupno: string;
+    total: string;
 
     stavke?: Stavka[];
     kupacId?: string;

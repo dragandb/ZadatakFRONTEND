@@ -27,9 +27,14 @@
                 <a class="nav-link" [routerLink]="['/stavka/list']" routerLinkActive="active1" 
                 [routerLinkActiveOptions]="{exact: true}"> Stavke </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/transakcija/list']" routerLinkActive="active1" 
-                [routerLinkActiveOptions]="{exact: true}"> Transakcije </a>
+              <li class="nav-item register">
+                <a class="nav-link register" [routerLink]="['/register']" > Register </a>
+              </li>
+              <li class="nav-item login">
+                <a class="nav-link login" *ngIf="!isUserAuthenticated()" [routerLink]="['/login']" > Login </a>
+              </li>
+              <li class="nav-item logout">
+                <a class="nav-link logout" *ngIf="isUserAuthenticated()" (click)="logOut()">Logout</a>
               </li>
             </ul>
           </div>

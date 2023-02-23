@@ -4,10 +4,33 @@
     color: #f53030; 
   }
 
-  .active1{ 
+.active1{ 
     font-size: 25px;
     font-weight: bold; 
     color: #f53030; 
   }
+
+.login{ 
+    position: absolute;
+    right: 15px;
+    font-weight: bold; 
+    color: #30c7f5; 
+  }
+
+  .logout{ 
+    position: absolute;
+    right: 15px;
+    font-weight: bold; 
+    color: #30c7f5; 
+  }
+
+  .register{ 
+    position: absolute;
+    right: 55px;
+    font-weight: bold; 
+    color: #30c7f5; 
+  }
+
+  
 
   

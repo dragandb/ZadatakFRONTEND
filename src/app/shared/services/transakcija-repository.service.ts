@@ -14,9 +14,7 @@ export class TransakcijaRepositoryService {
 
   constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) { }
 
-  public getStavka = (route: string) => {
-    return this.http.get<Stavka>(this.createCompleteRoute(route, this.envUrl.urlAddress));
-  }
+  
   public getStavkaList = (route: string) => {
     return this.http.get<Stavka[]>(this.createCompleteRoute(route, this.envUrl.urlAddress));
   }
@@ -47,28 +45,46 @@ export class TransakcijaRepositoryService {
   public getKupac = (route: string) => {
     return this.http.get('https://localhost:7186/api/Kupac/'+route);
   }  
-
   public getKupacBySifra = (route: string) => {
     return this.http.get<Kupac>('https://localhost:7186/api/Kupac/GetKupacBySifra/'+route);
   }  
-
   public getKupacByNaziv = (route: string) => {
     return this.http.get<Kupac>('https://localhost:7186/api/Kupac/GetKupacByNaziv/'+route);
   }
 
+
+
   public getProizvodList() {
     return this.http.get<Proizvod[]>('https://localhost:7186/api/Proizvod');
   }
-  public getProizvod = (route: string) => {
+  public getProizvod = (route: any) => {
     return this.http.get('https://localhost:7186/api/Proizvod/'+route);
   }
-
-  public getProizvodBySifra = (route: string) => {
+  public getProizvodBySifra = (route: any) => {
     return this.http.get<Proizvod>('https://localhost:7186/api/Proizvod/GetProizvodBySifra/'+route);
   }
-
-  public getProizvodByNaziv = (route: string) => {
+  public getProizvodByNaziv = (route: any) => {
     return this.http.get<Proizvod>('https://localhost:7186/api/Proizvod/GetProizvodByNaziv/'+route);
   }
 
+
+
+  public getRacunList() {
+    return this.http.get('https://localhost:7186/api/Racun');
+  }  
+  public getRacun = (racunno: any) => {
+    return this.http.get('https://localhost:7186/api/Racun/'+racunno);
+  }
+  public createRacun = (noviracun: any) => {
+    return this.http.post('https://localhost:7186/api/Racun', noviracun);
+  }
+  public deleteRacun = (racunno: any) => {
+    return this.http.delete('https://localhost:7186/api/Racun/'+racunno);
+  }
+
+
+  public getStavka = (racunno: any) => {
+    return this.http.get('https://localhost:7186/api/Stavka/'+racunno);
+  }
+  
 }

@@ -23,14 +23,14 @@
                     </tr>
                   </thead>
                   <tbody class="table-group-divider">
-                    <tr *ngFor="let proizvod of transakcijaList"> 
-                      <td>{{proizvod.id}}</td>
-                      <td>{{proizvod.sifra}}</td>
-                      <td>{{proizvod.naziv}}</td>
-                      <td>{{proizvod.jedinica_mjere}}</td>
-                      <td>{{proizvod.cijena}}</td>
-                      <td>{{proizvod.stanje}}</td>
-                      
+                    <tr *ngFor="let transakcija of transakcijaList"> 
+                      <td>{{transakcija.id}}</td>
+                      <td>{{transakcija.broj}}</td>
+                      <td>{{transakcija.kupacId}}</td>
+                      <td>{{transakcija.datum | date: 'dd.MM.yyyy'}}</td>
+                      <td>{{transakcija.ukupno | currency:'EUR'}}</td>
+                      <td>{{transakcija.ukupnoPopust | currency:'EUR'}}</td>
+                      <td>{{transakcija.total | currency:'EUR'}}</td>
                       <td>
                         <button type="button" id="update" class="btn btn-light"
                           (click)="redirectToUpdatePage(transakcija.id)">

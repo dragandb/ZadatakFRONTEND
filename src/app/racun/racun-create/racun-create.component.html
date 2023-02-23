@@ -1,4 +1,4 @@
-<div class="container-fluid" [formGroup]="transakcijaForm" (ngSubmit)="createTransakcija()">
+<div class="container-fluid" [formGroup]="racunForm" autocomplete="off" novalidate (ngSubmit)="createRacun(racunForm.value)">
     <div class="card card-body bg-light mt-4">
         <div class="row">
           <div class="col-md-12"> 
@@ -9,20 +9,11 @@
                         <div class="form-group">
                             <label>Broj računa</label>
                             <span class="text-danger">*</span>
-                            <input formControlName="broj" class="form-control" />
+                            <input type="text" formControlName="broj" id="broj" class="form-control" />
+                            <em *ngIf="validateControl('broj') 
+                            && hasError('broj', 'required')">Broj računa is required</em>
                         </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Kupac</label>
-                            <span class="text-danger">*</span>
-                            <select formControlName="kupacId" (change)="changeKupac()" class="form-control">
-                                <option *ngFor="let item of masterKupac" [value]="item.id">
-                                    {{item.naziv}}
-                                </option>
-                            </select>
-                        </div>
+                        
                     </div>
 
                     <div class="col-md-4">
@@ -35,8 +26,15 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>Datum</label>
-                            <textarea formControlName="datum" class="form-control"></textarea>
+                            <label>Kupac</label>
+                            <span class="text-danger">*</span>
+                            <select formControlName="kupacId" id="kupacId" (change)="changeKupac()" class="form-control">
+                                <option *ngFor="let item of kupacList" [value]="item.id">
+                                    {{item.naziv}}
+                                </option>
+                            </select>
+                            <em *ngIf="validateControl('kupacId') 
+                            && hasError('kupacId', 'required')">Kupac is required</em>
                         </div>
                     </div>
 
@@ -79,19 +77,14 @@
                                 </td>
                                 <td>{{i+1}}</td>
                                 <td>
-                                    <input class="form-control" (change)="changeProizvodSifra(i)" formControlName="sifra" list="proizvodi"/>
-                                    <datalist id="proizvodi">
-                                        <option *ngFor="let item of masterProizvod" >
+                                    <select class="form-control" (change)="changeProizvod(i)" formControlName="proizvodId" id="proizvodId">
+                                        <option *ngFor="let item of proizvodList" [value]="item.id">
                                             {{item.sifra}}
                                         </option>
-                                    </datalist>
+                                    </select>
                                 </td>
                                 <td>
-                                    <select class="form-control" (change)="changeProizvod(i)" formControlName="proizvodId">
-                                        <option *ngFor="let item of masterProizvod" [value]="item.id">
-                                            {{item.naziv}}
-                                        </option>
-                                    </select>
+                                    <input class="form-control" formControlName="naziv" />
                                 </td>
                                 <td>
                                     <input class="form-control" (change)="ItemCalculation(i)" formControlName="cijena" />
@@ -154,10 +147,10 @@
     
                 <div class="row md-3 mt-4">
                     <div class="col-md-3 offset-5">
-                        <button type="submit" class="btn btn-success" >Create</button>
+                        <button type="submit" class="btn btn-success" [disabled]="!racunForm.valid">Create</button>
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-secondary" (click)="redirectToTransakcijaList()">Back</button>
+                        <button type="button" class="btn btn-secondary" (click)="redirectToRacunList()">Back</button>
                     </div>
                 </div>
             </div>
