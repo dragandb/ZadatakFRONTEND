@@ -17,7 +17,7 @@ import { RacunModule } from './racun/racun.module';
 import { StavkaModule } from './stavka/stavka.module';
 import { TransakcijaModule } from './transakcija/transakcija.module';
 import { LoginComponent } from './login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtModule } from "@auth0/angular-jwt";
 import { AuthGuard } from './guards/auth.guard';
 import { RegisterComponent } from './register/register.component';
@@ -48,6 +48,7 @@ export function tokenGetter() {
     StavkaModule,
     TransakcijaModule,
     FormsModule,
+    ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
